@@ -47,10 +47,6 @@ export default {
 
 <style lang="scss">
 
-  .viewed {
-    opacity: 0.7;
-  }
-  
   .posts__post__author {
     font-size: 11px;
     margin-top: 15px;
