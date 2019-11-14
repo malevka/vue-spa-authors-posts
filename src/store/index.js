@@ -4,6 +4,12 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
+const url ='https://jsonplaceholder.typicode.com';
+
+const getData = async (context, requestName, mutationName) => {
+  const {data} = await axios.get(`${url}/${requestName}`);
+  context.commit(mutationName, data);
+};
 export const store = new Vuex.Store({
   state: {
     authors: null,
@@ -49,13 +55,8 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    getAuthors: async (context, payload) => {
-      let {data} = await axios.get('https://jsonplaceholder.typicode.com/users');
-      context.commit('setAuthors', data);
-    },
-    getPosts: async (context, payload) => {
-      let {data} = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      context.commit('setPosts', data);
-    }
+    getAuthors: async (context) => await getData(context, 'users', 'setAuthors'),
+    getPosts: async (context) => await getData(context, 'posts', 'setPosts')
   },
 });
+
