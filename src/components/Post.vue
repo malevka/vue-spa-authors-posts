@@ -55,32 +55,6 @@
   }
 </script>
 
-<style lang="scss">
- 
-  .post__title {
-    font-weight: bold;
-    padding: 0px 10px;
-  }
-
-  .post__header {
-      font-size: 24px;
-      //font-family: 'PT Serif', Georgia, 'Times New Roman', Times, serif;
-      color: #151515;
-      line-height: 26px;
-      font-weight: normal;    
-      background: #f5f5f5;
-  }
-
-  .post__body {
-      padding: 22px 10px 10px;
-      font-size: 14px;
-      //font-family: 'PT Serif', Georgia, 'Times New Roman', Times, serif;
-      color: #444;    
-  }
-
-  .post__author {
-      font-size: 11px;
-      margin: 0px 10px;
-      text-decoration-line: underline;
-  }
+<style lang="scss" scoped>
+ @import '../assets/css/post.scss';
 </style>
