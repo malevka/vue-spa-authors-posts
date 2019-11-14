@@ -2,24 +2,20 @@
   <div class="posts">
     <div class="section">
       <ul>      
-        <li class="list-item" v-for="post in postList" v-bind:class="{ viewed: isViewed(post.id)}">           
-           <router-link 
-            tag="div"
-            :to="{ name: 'post', params: { id: post.id } }">
-            <h3 class="list-item__post__title">{{post.title}}</h3>
-            <span class="post__description">{{post.body.substr(0, 255)}}</span>
-          </router-link>
-          <router-link 
-              tag="div"
-              :to="{ name: 'author', params: { id: post.userId } }">
-              <div class="posts__post__author"> {{ getAuthorOfPost(post.userId).name }}</div>
-          </router-link>
-        </li>
+        <post-item class="list-item" v-for="post in postList" v-bind:class="{ viewed: isViewed(post.id)}"
+                  v-bind:postTitle="post.title"
+                            v-bind:postBody="post.body"
+                            v-bind:postId="post.id"
+                            v-bind:authorId="post.userId"
+                            v-bind:key="post.id"
+                            v-bind:authorName="getAuthorOfPost(post.userId).name">
+        </post-item>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import PostItem from './PostItem'
 export default {
     data() {
       return {
@@ -41,15 +37,12 @@ export default {
       isViewed(postId) {
         return this.$store.getters.getViewedPosts.includes(postId);
       },
-    } 
+    },
+    components: {
+      'post-item' : PostItem,
+    }  
   }
 </script>
 
-<style lang="scss">
-
-  .posts__post__author {
-    font-size: 11px;
-    margin-top: 15px;
-    text-decoration-line: underline;
-  }
+<style lang="scss" scoped>
 </style>

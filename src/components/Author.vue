@@ -16,14 +16,12 @@
       <div class="author__posts">
         <div v-if="postsByAuthor.length > 0">
           <ul>
-            <li class="list-item" v-for="post in postsByAuthor" v-bind:class="{ viewed: isViewed(post.id)}"> 
-            <router-link               
-                  tag="div"
-                  :to="{ name: 'post', params: { id: post.id } }">
-                  <h3>{{ post.title }}</h3>
-                  <span class="post__description">{{post.body.substr(0, 255)}}</span>
-            </router-link>
-            </li>
+           <post-item class="list-item" v-for="post in postsByAuthor" v-bind:class="{ viewed: isViewed(post.id)}"
+                  v-bind:postTitle="post.title"
+                            v-bind:postBody="post.body"
+                            v-bind:key="post.id"
+                            v-bind:postId="post.id">
+           </post-item>
           </ul>
         </div> 
         <div v-else class="no_posts">{{ noPostsMessage }}</div>
@@ -33,13 +31,13 @@
   
 </template>
 <script>
+import PostItem from './PostItem'
    export default {
     props: ['id'],
     data() {
       return {
         noPostsMessage : 'У выбранного автора пока нет статей',
         prevRoute: null,
-        
       }
     },    
     created() {
@@ -62,45 +60,13 @@
       isViewed(postId) {
         return this.$store.getters.getViewedPosts.includes(postId);
       },
+    },
+    components: {
+      'post-item' : PostItem,
     } 
   }
 </script>
 
-<style lang="scss">
-  
-  .author__header {
-      font-size: 24px;
-      //font-family: 'PT Serif', Georgia, 'Times New Roman', Times, serif;
-      color: #151515;
-      line-height: 26px;
-      font-weight: normal;    
-      background: #f5f5f5;
-  }
-
-  .author__posts {
-    padding: 0px 10px 10px;
-  }
-
-  .no_posts {
-    padding: 25px;
-  }
-  
-  .author__username {
-      font-size: 11px;
-      margin: 0px 5px;
-      background: #f5f5f5;
-  }
-
-  .author__title {
-    text-align: left;
-    margin: 0;
-    font-size: 25px;
-    background: #f5f5f5;
-    font-weight: bold;
-    padding: 5px;
-  }
-
-  .author__name {
-    margin: 0 5px;
-  }
+<style lang="scss" scoped>
+  @import '../assets/css/author.scss';
 </style>
